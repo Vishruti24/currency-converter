@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import CurrencyDropdown from "./CurrencyDropdown";
 
-const BASE_URL = "https://v6.exchangerate-api.com/v6/18bcd1faca385d6790f975c6/latest";
+const BASE_URL =
+  "https://v6.exchangerate-api.com/v6/18bcd1faca385d6790f975c6/latest";
 
 const ConverterForm = () => {
   const [fromCurr, setFromCurr] = useState("USD");
@@ -26,32 +27,40 @@ const ConverterForm = () => {
   };
 
   return (
-    <form onSubmit={handleConvert} style={{ textAlign: "center" }}>
-      <div style={{ marginBottom: "20px" }}>
-        <CurrencyDropdown
-          name="from"
-          value={fromCurr}
-          onChange={(e) => setFromCurr(e.target.value)}
-        />
-        <CurrencyDropdown
-          name="to"
-          value={toCurr}
-          onChange={(e) => setToCurr(e.target.value)}
-        />
+    <form onSubmit={handleConvert} className="text-center mt-5">
+      <div className="container">
+        <div className="row align-items-center">
+          <div className="col-md-6 p-4">
+            <CurrencyDropdown
+              name="from"
+              value={fromCurr}
+              onChange={(e) => setFromCurr(e.target.value)}
+            />
+            <input
+              type="number"
+              min="1"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="form-control text-center my-3 pink-box"
+            />
+          </div>
+
+          <div className="col-md-6 p-4">
+            <CurrencyDropdown
+              name="to"
+              value={toCurr}
+              onChange={(e) => setToCurr(e.target.value)}
+            />
+            <div className="form-control text-center my-3 pink-box fw-bold">
+              {message ? message : "Converted Amount"}
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" className="btn btn-danger convert-btn mt-3">
+          Convert
+        </button>
       </div>
-
-      <input
-        type="number"
-        min="1"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        style={{ padding: "8px", marginRight: "10px" }}
-      />
-      <button type="submit">Convert</button>
-
-      <p className="msg" style={{ marginTop: "20px", fontWeight: "bold" }}>
-        {message}
-      </p>
     </form>
   );
 };
